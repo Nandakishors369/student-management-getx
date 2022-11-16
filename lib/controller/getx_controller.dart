@@ -39,6 +39,7 @@ class StudentController extends GetxController {
   deleteStudent(int index) async {
     await dbStudent.deleteAt(index);
     studentlist.removeAt(index);
+    update();
   }
 
   updateStudent(StudenDetails newValue, int index) async {

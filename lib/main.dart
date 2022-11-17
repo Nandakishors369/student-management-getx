@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:student_app_bloc/model/db/db_functions.dart';
 import 'package:student_app_bloc/model/student_model.dart';
-import 'package:student_app_bloc/presentation/navigation.dart';
+import 'package:student_app_bloc/view/navigation.dart';
 
 //
 late Box<StudenDetails> dbStudent;

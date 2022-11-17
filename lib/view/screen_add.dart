@@ -7,8 +7,8 @@ import 'package:student_app_bloc/controller/getx_controller.dart';
 import 'package:student_app_bloc/core/constants.dart';
 import 'package:student_app_bloc/model/db/db_functions.dart';
 import 'package:student_app_bloc/model/student_model.dart';
-import 'package:student_app_bloc/presentation/widgets/heading.dart';
-import 'package:student_app_bloc/presentation/widgets/textfield.dart';
+import 'package:student_app_bloc/view/widgets/heading.dart';
+import 'package:student_app_bloc/view/widgets/textfield.dart';
 
 class ScreenAdd extends StatelessWidget {
   ScreenAdd({super.key});
@@ -36,6 +36,8 @@ class ScreenAdd extends StatelessWidget {
 
 class AddStudent extends StatelessWidget {
   StudentController getxcontroller = Get.put(StudentController());
+  final formGlobalKey = GlobalKey<FormState>();
+  String? img;
   AddStudent({
     Key? key,
   }) : super(key: key);
@@ -47,11 +49,13 @@ class AddStudent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: formGlobalKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
             GetBuilder<StudentController>(builder: (data) {
+              img = data.pickedimage;
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -64,11 +68,10 @@ class AddStudent extends StatelessWidget {
                         CircleAvatar(
                           backgroundColor: kzwhite,
                           radius: 60,
-                          backgroundImage: data.pickedimage == null
-                              ? const NetworkImage(
-                                  "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg")
-                              : FileImage(File(data.pickedimage!))
-                                  as ImageProvider,
+                          backgroundImage: img == null
+                              ? const AssetImage(
+                                  "Assets/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg")
+                              : FileImage(File(img!)) as ImageProvider,
                         ),
                         Positioned(
                           right: -24,
@@ -110,13 +113,35 @@ class AddStudent extends StatelessWidget {
               width: 200,
               child: ElevatedButton(
                 onPressed: () {
-                  final studentsinfo = StudenDetails(
+                  final isValid = formGlobalKey.currentState!.validate();
+                  if (getxcontroller.pickedimage == null) {
+                    Get.snackbar('Error', 'image is required',
+                        snackPosition: SnackPosition.BOTTOM,
+                        colorText: Colors.red,
+                        backgroundColor: Colors.black);
+                  } else if (isValid) {
+                    final studentsinfo = StudenDetails(
                       name: nameController.text,
                       age: ageController.text,
                       classs: classController.text,
                       division: divisionController.text,
-                      image: getxcontroller.pickedimage);
-                  getxcontroller.addStudent(studentsinfo);
+                      image: getxcontroller.pickedimage,
+                    );
+
+                    getxcontroller.addStudent(studentsinfo);
+
+                    nameController.clear();
+                    ageController.clear();
+                    divisionController.clear();
+                    classController.clear();
+                    getxcontroller.updateImgae();
+
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    Get.snackbar('Info', 'Student Succesfully Added',
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: kztext);
+                  }
+                  ;
                 },
                 child: Text(
                   "Submit",

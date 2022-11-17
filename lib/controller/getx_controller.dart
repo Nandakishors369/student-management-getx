@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:student_app_bloc/main.dart';
@@ -45,5 +46,11 @@ class StudentController extends GetxController {
   updateStudent(StudenDetails newValue, int index) async {
     await dbStudent.putAt(index, newValue);
     studentlist.value[index] = newValue;
+    update();
+  }
+
+  updateImgae() {
+    pickedimage = null;
+    update();
   }
 }

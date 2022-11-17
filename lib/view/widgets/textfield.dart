@@ -11,6 +11,7 @@ class TextForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: kListStyle,
       controller: Controller,
       decoration: InputDecoration(
         labelText: label,
@@ -25,6 +26,13 @@ class TextForm extends StatelessWidget {
           ),
         ),
       ),
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'Field is required';
+        }
+
+        return null;
+      },
     );
   }
 }

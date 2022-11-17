@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:student_app_bloc/core/constants.dart';
-import 'package:student_app_bloc/presentation/screen_home.dart';
-import 'package:student_app_bloc/presentation/screen_add.dart';
+import 'package:student_app_bloc/view/screen_home.dart';
+import 'package:student_app_bloc/view/screen_add.dart';
 
 class ScreenNavigationBar extends StatefulWidget {
   const ScreenNavigationBar({super.key});

@@ -10,7 +10,9 @@ const kztext = Color(0xFFab60fb);
 const kheight = SizedBox(
   height: 30,
 );
-
+const kheight20 = SizedBox(
+  height: 15,
+);
 // styles
 
 final kHeadingStyle = GoogleFonts.poppins(
@@ -24,4 +26,10 @@ final kListStyle = GoogleFonts.montserrat(
   color: kzwhite,
   fontSize: 16,
 ));
+
+final popupTextStyle = GoogleFonts.poppins(
+    textStyle: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w400,
+        color: kzwhite));
 /* rgb(218, 34, 255) */

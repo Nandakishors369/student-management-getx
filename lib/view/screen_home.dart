@@ -12,11 +12,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:student_app_bloc/main.dart';
 import 'package:student_app_bloc/model/student_model.dart';
 import 'package:student_app_bloc/view/scree_edit.dart';
+import 'package:student_app_bloc/view/screen_search.dart';
 
 import 'widgets/heading.dart';
 
+final getxController = Get.put(StudentController());
+
 class ScreenHome extends StatelessWidget {
-  final getxController = Get.put(StudentController());
   ScreenHome({super.key});
 
   @override
@@ -31,7 +33,30 @@ class ScreenHome extends StatelessWidget {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  Heading(title: "Student List"),
+                  Row(
+                    children: [
+                      Heading(title: "Student List"),
+                      SizedBox(
+                        width: 90,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: 4,
+                        ),
+                        child: IconButton(
+                          onPressed: () {
+                            showSearch(
+                                context: context, delegate: StudentSearch());
+                          },
+                          icon: Icon(
+                            Icons.search,
+                            size: 35,
+                            color: kztext,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                   HomeListView(getxController: getxController)
                 ],
               ),

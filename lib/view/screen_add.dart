@@ -139,7 +139,8 @@ class AddStudent extends StatelessWidget {
                     FocusManager.instance.primaryFocus?.unfocus();
                     Get.snackbar('Info', 'Student Succesfully Added',
                         snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: kztext);
+                        colorText: Colors.green,
+                        backgroundColor: Colors.black);
                   }
                   ;
                 },
